@@ -31,7 +31,7 @@ public class Nodo<T> {
 		this.dcho = dcho;
 	}
 
-	public void setDato(T dato) { 
+	public void setDato(T dato) {  
 		this.dato = dato;
 	}
 }
