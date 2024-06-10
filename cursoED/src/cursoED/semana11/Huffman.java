@@ -22,7 +22,7 @@ public class Huffman {
 			hn.c = charArray[i];
 			hn.freq = charfreq[i]; 
 			hn.left = null;
-			hn.right = null;
+			hn.right = null; 
 			q.add(hn);
 		}
 		HuffmanNode root = null;

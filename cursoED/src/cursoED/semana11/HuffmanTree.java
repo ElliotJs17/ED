@@ -40,7 +40,7 @@ public class HuffmanTree {
 		return result;
 	}
 
-	public void buildMaps(HuffmanNode root, String s) {
+	private void buildMaps(HuffmanNode root, String s) {
 		if (root.left == null && root.right == null && Character.isLetter(root.c)) { 
 			// Por completar.
 			charCodificado.put(root.c, s);
@@ -48,10 +48,10 @@ public class HuffmanTree {
 			return;
 		}
 		buildMaps(root.left, s + "0");
-		buildMaps(root.right, s + "1");
+		buildMaps(root.right, s + "1"); 
 	}
 
-	public HuffmanNode buildTree() {
+	private HuffmanNode buildTree() {
 		PriorityQueue<HuffmanNode> q = new PriorityQueue<HuffmanNode>(charArray.length, new FreqComparator());
 		for (int i = 0; i < charArray.length; i++) {
 			// Por completar.
@@ -59,7 +59,7 @@ public class HuffmanTree {
 			hn.c = charArray[i];
 			hn.freq = charfreq[i];
 			hn.left = null;
-			hn.right = null;
+			hn.right = null; 
 			q.add(hn);
 
 		}
