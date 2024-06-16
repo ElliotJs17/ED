@@ -17,7 +17,7 @@ public class Btree {
 		System.out.println();
 	}
 
-	// function to search a key in this tree
+	// function to search a key in this tree 
 	public BTreeNode search(int k) {
 		if (this.root == null)
 			return null;

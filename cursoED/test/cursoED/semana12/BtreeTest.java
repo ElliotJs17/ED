@@ -8,7 +8,7 @@ class BtreeTest {
 	Btree tree = new Btree(3); // Crear un árbol B con un grado mínimo de 3
 
 	@Test
-    public void testInsertAndSearch() {        
+    public void testInsertAndSearch() {       
         // Insertar algunas claves
         tree.insert(10);
         tree.insert(20);
@@ -18,9 +18,9 @@ class BtreeTest {
         tree.insert(30);
         
         // Realizar pruebas de búsqueda
-        assertNotNull(tree.search(10)); // La clave 10 debe estar presente
-        assertNotNull(tree.search(20)); // La clave 20 debe estar presente
-        assertNull(tree.search(15));    // La clave 15 no debe estar presente
+        assertNotNull(tree.root.search(10)); // Verificar que la clave 10 está presente
+        assertNotNull(tree.root.search(20)); // Verificar que la clave 20 está presente
+        assertNull(tree.root.search(15));    // Verificar que la clave 15 no está presente
     }
 
     @Test
@@ -31,7 +31,7 @@ class BtreeTest {
         tree.insert(5);
         tree.insert(6);
         tree.insert(12);
-        tree.insert(30);
+        tree.insert(30); 
         
         // Realizar prueba de recorrido
         // Este método simplemente imprimirá el recorrido en la consola para su verificación manual

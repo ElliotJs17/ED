@@ -13,7 +13,7 @@ public class BTreeNode {
 		this.t = t;
 		this.leaf = leaf;
 		this.keys = new int[2 * t - 1];
-		this.C = new BTreeNode[2 * t];
+		this.C = new BTreeNode[2 * t]; 
 		this.n = 0;
 	}
 

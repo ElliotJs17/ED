@@ -1,12 +1,12 @@
 package cursoED.semana12;
 
 public class SplayTree {
-	private BinaryNode root;
-
+	protected BinaryNode root;
+	
 	public SplayTree() {
-		root = null;
+		root = null; 
 	}
-
+	
 	/**
 	 * Insert into the tree.
 	 * 
@@ -17,12 +17,12 @@ public class SplayTree {
 		BinaryNode n;
 		int c;
 		if (root == null) {
-			root = new BinaryNode(key);
+			root = new BinaryNode(key); 
 			return;
 		}
 		splay(key);
 		if ((c = key.compareTo(root.key)) == 0) {
-			// throw new DuplicateItemException(x.toString());
+			// throw new DuplicateItemException(x.toString()); 
 			return;
 		}
 		n = new BinaryNode(key);
@@ -201,6 +201,8 @@ public class SplayTree {
 		t.right = header.left;
 		root = t; 
 	}
+
+	
 	
 	
 	/*

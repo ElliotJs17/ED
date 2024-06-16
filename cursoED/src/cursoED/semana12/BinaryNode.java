@@ -6,7 +6,7 @@ public class BinaryNode {
 		left = right = null;
 	}
 
-	Comparable key; // The data in the node
+	Comparable key; // The data in the node 
 	BinaryNode left; // Left child
 	BinaryNode right; // Right child
 }

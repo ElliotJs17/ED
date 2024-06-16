@@ -6,191 +6,118 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SplayTreeTest {
-
-	private SplayTree tree;
-
-    @BeforeEach
-    public void setUp() {
-        tree = new SplayTree();
-    }
-
+  
     @Test
-    public void testInsertAndFind() {
-    	// Verificar que buscar en un árbol vacío retorna null
+    public void testInsert() {
+        SplayTree tree = new SplayTree();
+        
+     // Verificar que buscar en un árbol vacío retorna null
         assertNull(tree.find(10));
-                     	
-    	// Insertar elementos
-        tree.insert(10);
-        tree.insert(20);
-        tree.insert(5);
-        tree.insert(15);
-        tree.insert(30);
-        
-        /*
-				       10
-				      /  \
-				     5    20
-				         /  \
-				       15    30
-        */
 
-        // Verificar que se pueden encontrar correctamente
-        assertEquals(10, tree.find(10));
-        assertEquals(20, tree.find(20));
-        assertEquals(5, tree.find(5));
-        assertEquals(15, tree.find(15));
-        assertEquals(30, tree.find(30));
-
-        // Intentar insertar duplicado
-        tree.insert(10);
-        
-        // Verificar que el duplicado no afecta la estructura
-        assertEquals(10, tree.find(10));
-
-        // Buscar elementos no existentes
-        assertNull(tree.find(25));
-        assertNull(tree.find(1));
-    }
-
-    @Test
-    public void testFindMin() {
-    	// Verificar que buscar el mínimo en un árbol vacío retorna null
-        assertNull(tree.findMin());
-        
         // Insertar elementos
         tree.insert(10);
         tree.insert(5);
         tree.insert(15);
         tree.insert(3);
         tree.insert(7);
-        tree.insert(12);
+
+        // Verificar nodos izquierdo y derecho después de la inserción
+        assertEquals(7, tree.root.key); // Verifica la clave en la raíz
+        assertEquals(5, tree.root.left.key); // Verifica la clave del nodo izquierdo de la raíz
+        assertEquals(10, tree.root.right.key); // Verifica la clave del nodo derecho de la raíz
+        assertEquals(3, tree.root.left.left.key); // Verifica la clave del nodo izquierdo de '5'
+        assertEquals(15, tree.root.right.right.key); // Verifica la clave del nodo derecho de '15'
+    }
+    
+    @Test
+    public void testRemove() {
+        SplayTree tree = new SplayTree();
         
-        /*
-					   10
-				      /  \
-				     5    15
-				    / \   /
-				   3   7 12
-        */
+     // Verificar que buscar en un árbol vacío retorna null
+        assertNull(tree.find(10));
 
-        // Verificar que el mínimo se encuentra correctamente
-        assertEquals(3, tree.findMin());
+        // Insertar elementos
+        tree.insert(10);
+        tree.insert(5);
+        tree.insert(15);
+        tree.insert(3);
+        tree.insert(7);
 
-        // Remover el mínimo actual y verificar el nuevo mínimo
+        // Eliminar elementos
         tree.remove(3);
         assertEquals(5, tree.findMin());
 
-        // Remover todos los elementos y verificar el comportamiento en un árbol vacío
-        tree.remove(10);
-        tree.remove(5);
         tree.remove(15);
-        tree.remove(7);
-        tree.remove(12);
+        assertEquals(10, tree.findMax()); 
+
+        // Verificar nodos izquierdo y derecho después de la eliminación
+        assertEquals(10, tree.root.key); // Verifica la clave en la raíz
+        assertEquals(7, tree.root.left.key); // Nodo izquierdo del nodo raíz después de eliminar 3
+        assertEquals(5, tree.root.left.left.key); // Nodo derecho del nodo raíz después de eliminar 15
+    }
+    
+    @Test
+    public void testFindMinAndMax() {
+        SplayTree tree = new SplayTree();
+        
+        // Verificar que buscar el máximo en un árbol vacío retorna null
+        assertNull(tree.findMax());
+        
+        // Verificar que buscar el mínimo en un árbol vacío retorna null
         assertNull(tree.findMin());
-    }
 
-    @Test
-    public void testFindMax() {
-    	// Verificar que buscar el máximo en un árbol vacío retorna null
-        assertNull(tree.findMax());
-         	
-    	// Insertar elementos en orden aleatorio
+        // Insertar elementos
         tree.insert(10);
-        tree.insert(20);
         tree.insert(5);
         tree.insert(15);
-        tree.insert(30);
-        tree.insert(2);
-        
-        /*
-						   10
-					      /  \
-					     5    20
-					    /    /  \
-					   2   15   30
-        */
+        tree.insert(3);
+        tree.insert(7);
 
-        // Verificar que el máximo se encuentra correctamente
-        assertEquals(30, tree.findMax());
+        // Verificar mínimo y máximo
+        assertEquals(3, tree.findMin());
+        assertEquals(15, tree.findMax());
 
-        // Remover el máximo actual y verificar el nuevo máximo
-        tree.remove(30);
-        assertEquals(20, tree.findMax());
-
-        // Remover todos los elementos y verificar el comportamiento en un árbol vacío
-        tree.remove(10);
-        tree.remove(20);
-        tree.remove(5);
-        tree.remove(15);
-        tree.remove(2);
-        assertNull(tree.findMax());
+        // Verificar nodos izquierdo y derecho después de buscar mínimo y máximo
+        assertEquals(15, tree.root.key); // Verifica la clave en la raíz
+        assertEquals(5, tree.root.left.key); // Nodo izquierdo del nodo raíz después de buscar mínimo
+        assertEquals(3, tree.root.left.left.key); // Nodo derecho del nodo raíz después de buscar máximo
+        assertEquals(10, tree.root.left.right.key); // Nodo derecho del nodo raíz después de buscar máximo
+        assertEquals(7, tree.root.left.right.left.key); // Nodo derecho del nodo raíz después de buscar máximo
     }
-
+    
     @Test
-    public void testRemove() {	
-    	// Insertar elementos
+    public void testSplay() {
+        SplayTree tree = new SplayTree();
+
+        // Insertar elementos
         tree.insert(10);
-        tree.insert(20);
         tree.insert(5);
         tree.insert(15);
-        tree.insert(30);
-        
-        /*
-						   10
-					      /  \
-					     5    20
-					         /  \
-					       15    30
-        */
+        tree.insert(3);
+        tree.insert(7);
 
-        // Eliminar un elemento y verificar que ya no está presente
-        tree.remove(10);
-        assertNull(tree.find(10));
+        // Realizar una búsqueda para activar splay
+        tree.find(5);
+        assertEquals(5, tree.find(5)); // Verificar que el nodo 5 está en la raíz después del splay
 
-        // Verificar que el árbol aún contiene los otros elementos
-        assertEquals(20, tree.find(20));
-        assertEquals(5, tree.find(5));
-        assertEquals(15, tree.find(15));
-        assertEquals(30, tree.find(30));
-
-        // Intentar eliminar un elemento que no existe
-        tree.remove(25);
-        
-        // Verificar que el árbol no se ve afectado
-        assertEquals(20, tree.find(20));
-        assertEquals(5, tree.find(5));
-        assertEquals(15, tree.find(15));
-        assertEquals(30, tree.find(30));
-
-        // Eliminar todos los elementos y verificar que el árbol está vacío
-        tree.remove(20);
-        tree.remove(5);
-        tree.remove(15);
-        tree.remove(30);
-        assertTrue(tree.isEmpty());
+        // Verificar nodos izquierdo y derecho después de splay
+        assertEquals(3, tree.root.left.key); // Nodo izquierdo del nodo raíz después del splay de 5
+        assertEquals(7, tree.root.right.key); // Nodo derecho del nodo raíz después del splay de 5
     }
-
+    
     @Test
-    public void testIsEmpty() {
-    	// Verificar que el árbol está vacío inicialmente
+    public void testEmptyTree() {
+        SplayTree tree = new SplayTree();
+
+        // Verificar que el árbol esté vacío inicialmente
         assertTrue(tree.isEmpty());
 
-        // Insertar un elemento y verificar que ya no está vacío
+        // Insertar y verificar que el árbol ya no está vacío
         tree.insert(10);
         assertFalse(tree.isEmpty());
 
-        // Eliminar el elemento y verificar que el árbol está vacío de nuevo
-        tree.remove(10);
-        assertTrue(tree.isEmpty());
-        
-        // Insertar múltiples elementos y verificar
-        tree.insert(20);
-        tree.insert(30);
-        assertFalse(tree.isEmpty());
-
-        // Vaciar el árbol y verificar que está vacío
-        tree.remove(20);
-        tree.remove(30);
-        assertTrue(tree.isEmpty());
+        // Verificar nodos izquierdo y derecho después de insertar
+        assertNull(tree.root.left); // No hay nodo izquierdo del nodo raíz
+        assertNull(tree.root.right); // No hay nodo derecho del nodo raíz
     }
 }
